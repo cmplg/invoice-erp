@@ -42,7 +42,7 @@ export default function AddPaymentPage({ params }: PageProps) {
       alert("Pembayaran berhasil dicatat");
       router.push(`/invoices/${id}`);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert("Terjadi kesalahan");
     } finally {
       setLoading(false);

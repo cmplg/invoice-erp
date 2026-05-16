@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { formatCurrency, formatDate } from "@/lib/utils";
 import { notFound } from "next/navigation";
 import { Pencil, Printer, Download, CreditCard } from "lucide-react";
 import CancelInvoiceButton from "@/components/invoice/cancel-invoice-button";
@@ -9,14 +10,6 @@ type PageProps = {
     id: string;
   }>;
 };
-
-function formatRupiah(value: number) {
-  return `Rp ${value.toLocaleString("id-ID")}`;
-}
-
-function formatDate(value: Date) {
-  return new Date(value).toLocaleDateString("id-ID");
-}
 
 const STATUS_STYLES: Record<string, string> = {
   PENDING: "bg-yellow-500/15 text-yellow-300",
@@ -163,8 +156,8 @@ export default async function InvoiceDetailPage({ params }: PageProps) {
                 <tr key={item.id} className="border-b border-zinc-800">
                   <td className="px-4 py-4">{item.description}</td>
                   <td className="px-4 py-4 text-right">{item.quantity}</td>
-                  <td className="px-4 py-4 text-right">{formatRupiah(item.price)}</td>
-                  <td className="px-4 py-4 text-right font-semibold">{formatRupiah(item.total)}</td>
+                  <td className="px-4 py-4 text-right">{formatCurrency(item.price)}</td>
+                  <td className="px-4 py-4 text-right font-semibold">{formatCurrency(item.total)}</td>
                 </tr>
               ))}
             </tbody>
@@ -205,19 +198,19 @@ export default async function InvoiceDetailPage({ params }: PageProps) {
             <div className="w-full max-w-md space-y-4 rounded-3xl border border-zinc-800 bg-zinc-950 p-6">
               <div className="flex justify-between text-zinc-400 text-sm">
                 <span>Subtotal</span>
-                <span>{formatRupiah(invoice.subtotal)}</span>
+                <span>{formatCurrency(invoice.subtotal)}</span>
               </div>
               <div className="flex justify-between text-zinc-400 text-sm">
                 <span>Dibayar</span>
-                <span>{formatRupiah(invoice.paidAmount)}</span>
+                <span>{formatCurrency(invoice.paidAmount)}</span>
               </div>
               <div className="border-t border-zinc-800 pt-4 flex justify-between text-2xl font-bold">
                 <span>Sisa</span>
-                <span>{formatRupiah(remaining)}</span>
+                <span>{formatCurrency(remaining)}</span>
               </div>
               <div className="border-t border-zinc-800 pt-4 flex justify-between text-3xl font-bold">
                 <span>Grand Total</span>
-                <span>{formatRupiah(invoice.grandTotal)}</span>
+                <span>{formatCurrency(invoice.grandTotal)}</span>
               </div>
             </div>
           </div>

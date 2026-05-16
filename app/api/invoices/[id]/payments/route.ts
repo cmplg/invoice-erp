@@ -73,7 +73,7 @@ export async function POST(req: Request, { params }: Params) {
       invoice: updatedInvoice,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return NextResponse.json(
       { error: "Gagal mencatat pembayaran" },
       { status: 500 }

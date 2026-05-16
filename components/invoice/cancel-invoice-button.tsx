@@ -34,7 +34,7 @@ export default function CancelInvoiceButton({ id }: CancelInvoiceButtonProps) {
       alert("Invoice berhasil dibatalkan");
       router.refresh();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert("Terjadi kesalahan saat membatalkan invoice");
     } finally {
       setLoading(false);

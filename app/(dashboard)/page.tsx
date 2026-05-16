@@ -1,14 +1,5 @@
 import { prisma } from "@/lib/prisma";
-
-const currencyFormatter = new Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-  maximumFractionDigits: 0,
-});
-
-function formatCurrency(amount: number) {
-  return currencyFormatter.format(amount).replace("Rp", "Rp ");
-}
+import { formatCurrency } from "@/lib/utils";
 
 function getMonthLabel(date: Date) {
   return new Intl.DateTimeFormat("id-ID", {

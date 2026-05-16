@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 
 type Item = {
   description: string;
@@ -85,7 +86,7 @@ export default function CreateInvoicePage() {
       alert("Invoice berhasil dibuat");
       window.location.href = "/invoices";
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert("Terjadi kesalahan");
     }
   }
@@ -215,7 +216,7 @@ export default function CreateInvoicePage() {
                     />
                   </div>
                   <div className="md:col-span-2 flex items-center justify-end text-right text-sm sm:text-base font-semibold text-white">
-                    Rp {total.toLocaleString()}
+                    {formatCurrency(total)}
                   </div>
                   <div className="md:col-span-1 flex items-center justify-center">
                     <button
@@ -235,7 +236,7 @@ export default function CreateInvoicePage() {
         <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-5 sm:p-8 shadow-sm flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-zinc-400 text-sm sm:text-base">Total akhir invoice.</p>
-            <h2 className="text-2xl sm:text-3xl font-bold mt-2">Rp {grandTotal.toLocaleString()}</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mt-2">{formatCurrency(grandTotal)}</h2>
           </div>
 
           <button

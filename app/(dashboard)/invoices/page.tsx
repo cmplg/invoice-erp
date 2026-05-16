@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Eye, Plus } from "lucide-react";
+import { formatCurrency, formatDate } from "@/lib/utils";
 
 export default async function InvoicesPage() {
   const invoices = await prisma.invoice.findMany({
@@ -36,12 +37,12 @@ export default async function InvoicesPage() {
         <table className="w-full relative z-10">
           <thead className="bg-white/5 border-b border-white/10">
             <tr>
-              <th className="text-left p-5 text-emerald-200 font-semibold\">Invoice</th>
-              <th className="text-left p-5 text-emerald-200 font-semibold\">Customer</th>
-              <th className="text-left p-5 text-emerald-200 font-semibold\">Tanggal</th>
-              <th className="text-left p-5 text-emerald-200 font-semibold\">Total</th>
-              <th className="text-left p-5 text-emerald-200 font-semibold\">Status</th>
-              <th className="text-left p-5 text-emerald-200 font-semibold\">Aksi</th>
+              <th className="text-left p-5 text-emerald-200 font-semibold">Invoice</th>
+              <th className="text-left p-5 text-emerald-200 font-semibold">Customer</th>
+              <th className="text-left p-5 text-emerald-200 font-semibold">Tanggal</th>
+              <th className="text-left p-5 text-emerald-200 font-semibold">Total</th>
+              <th className="text-left p-5 text-emerald-200 font-semibold">Status</th>
+              <th className="text-left p-5 text-emerald-200 font-semibold">Aksi</th>
             </tr>
           </thead>
 
@@ -67,13 +68,11 @@ export default async function InvoicesPage() {
                   </td>
 
                   <td className="p-5 text-zinc-400">
-                    {new Date(
-                      invoice.invoiceDate
-                    ).toLocaleDateString("id-ID")}
+                    {formatDate(invoice.invoiceDate)}
                   </td>
 
                   <td className="p-5 font-bold">
-                    Rp {invoice.grandTotal.toLocaleString("id-ID")}
+                    {formatCurrency(invoice.grandTotal)}
                   </td>
 
                   <td className="p-5">
@@ -130,15 +129,13 @@ export default async function InvoicesPage() {
                 <div>
                   <p className="text-emerald-200/70">Tanggal</p>
                   <p className="font-semibold text-white">
-                    {new Date(
-                      invoice.invoiceDate
-                    ).toLocaleDateString("id-ID")}
+                    {formatDate(invoice.invoiceDate)}
                   </p>
                 </div>
                 <div>
                   <p className="text-emerald-200/70">Total</p>
                   <p className="font-bold text-emerald-300">
-                    Rp {invoice.grandTotal.toLocaleString("id-ID")}
+                    {formatCurrency(invoice.grandTotal)}
                   </p>
                 </div>
               </div>

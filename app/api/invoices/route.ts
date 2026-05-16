@@ -103,7 +103,7 @@ export async function POST(req: Request) {
       invoice,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     return NextResponse.json(
       {

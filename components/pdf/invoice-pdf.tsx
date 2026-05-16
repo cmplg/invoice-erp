@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from "@react-pdf/renderer";
 import { Invoice, InvoiceItem } from "@prisma/client";
+import { formatCurrency, formatDate } from "@/lib/utils";
 
 type CompanySetting = {
   companyName: string;
@@ -128,10 +129,6 @@ const styles = StyleSheet.create({
   },
 });
 
-function rupiah(value: number) {
-  return `Rp ${value.toLocaleString("id-ID")}`;
-}
-
 export default function InvoicePDF({ invoice, company }: InvoicePDFProps) {
   const remaining = invoice.grandTotal - invoice.paidAmount;
   const companyName = company?.companyName || "Invoice ERP";
@@ -160,9 +157,7 @@ export default function InvoicePDF({ invoice, company }: InvoicePDFProps) {
           <View>
             <Text>Invoice No.</Text>
             <Text style={styles.title}>{invoice.invoiceNumber}</Text>
-            <Text style={styles.muted}>
-              {new Date(invoice.invoiceDate).toLocaleDateString("id-ID")}
-            </Text>
+            <Text style={styles.muted}>{formatDate(invoice.invoiceDate)}</Text>
           </View>
         </View>
 
@@ -199,30 +194,30 @@ export default function InvoicePDF({ invoice, company }: InvoicePDFProps) {
           <View key={item.id} style={styles.tableRow}>
             <Text style={styles.colDesc}>{item.description}</Text>
             <Text style={styles.colSmall}>{item.quantity}</Text>
-            <Text style={styles.colSmall}>{rupiah(item.price)}</Text>
-            <Text style={styles.colTotal}>{rupiah(item.total)}</Text>
+            <Text style={styles.colSmall}>{formatCurrency(item.price)}</Text>
+            <Text style={styles.colTotal}>{formatCurrency(item.total)}</Text>
           </View>
         ))}
 
         <View style={styles.totals}>
           <View style={styles.totalRow}>
             <Text>Subtotal</Text>
-            <Text>{rupiah(invoice.subtotal)}</Text>
+            <Text>{formatCurrency(invoice.subtotal)}</Text>
           </View>
 
           <View style={styles.totalRow}>
             <Text>Dibayar</Text>
-            <Text>{rupiah(invoice.paidAmount)}</Text>
+            <Text>{formatCurrency(invoice.paidAmount)}</Text>
           </View>
 
           <View style={styles.totalRow}>
             <Text>Sisa</Text>
-            <Text>{rupiah(remaining)}</Text>
+            <Text>{formatCurrency(remaining)}</Text>
           </View>
 
           <View style={[styles.totalRow, styles.grand]}>
             <Text>Grand Total</Text>
-            <Text>{rupiah(invoice.grandTotal)}</Text>
+            <Text>{formatCurrency(invoice.grandTotal)}</Text>
           </View>
         </View>
 

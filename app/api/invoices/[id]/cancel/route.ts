@@ -47,7 +47,7 @@ export async function POST(req: Request, { params }: RouteProps) {
       success: true,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return NextResponse.json(
       { error: "Gagal membatalkan invoice" },
       { status: 500 }

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Trash2 } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 
 type Item = {
   id?: string;
@@ -62,7 +63,7 @@ export default function EditInvoicePage({ params }: PageProps) {
           })));
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
@@ -135,7 +136,7 @@ export default function EditInvoicePage({ params }: PageProps) {
       alert("Invoice berhasil diupdate");
       router.push(`/invoices/${id}`);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert("Terjadi kesalahan");
     }
   }
@@ -299,7 +300,7 @@ export default function EditInvoicePage({ params }: PageProps) {
                   </div>
 
                   <div className="md:col-span-2 flex items-center text-xl font-bold">
-                    Rp {total.toLocaleString()}
+                    {formatCurrency(total)}
                   </div>
 
                   <div className="md:col-span-1 flex items-center justify-center">
@@ -323,7 +324,7 @@ export default function EditInvoicePage({ params }: PageProps) {
           </h2>
 
           <div className="text-4xl font-bold">
-            Rp {grandTotal.toLocaleString()}
+            {formatCurrency(grandTotal)}
           </div>
         </div>
       </div>

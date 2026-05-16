@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Eye, Plus } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 
 export default async function CustomersPage() {
   const customers = await prisma.customer.findMany({
@@ -86,7 +87,7 @@ export default async function CustomersPage() {
                     </td>
 
                     <td className="p-5 font-bold">
-                      Rp {totalAmount.toLocaleString("id-ID")}
+                      {formatCurrency(totalAmount)}
                     </td>
 
                     <td className="p-5">
@@ -147,7 +148,7 @@ export default async function CustomersPage() {
                   <div>
                     <p className="text-rose-200/70">Total</p>
                     <p className="font-bold text-rose-300">
-                      Rp {totalAmount.toLocaleString("id-ID")}
+                      {formatCurrency(totalAmount)}
                     </p>
                   </div>
                 </div>

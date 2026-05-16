@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Plus, ArrowRight } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
 
 export default async function PaymentsPage() {
   const invoices = await prisma.invoice.findMany({
@@ -75,15 +76,15 @@ export default async function PaymentsPage() {
                     </td>
 
                     <td className="p-5 font-bold">
-                      Rp {invoice.grandTotal.toLocaleString("id-ID")}
+                      {formatCurrency(invoice.grandTotal)}
                     </td>
 
                     <td className="p-5 text-green-400">
-                      Rp {invoice.paidAmount.toLocaleString("id-ID")}
+                      {formatCurrency(invoice.paidAmount)}
                     </td>
 
                     <td className="p-5 text-red-400 font-semibold">
-                      Rp {remaining.toLocaleString("id-ID")}
+                      {formatCurrency(remaining)}
                     </td>
 
                     <td className="p-5">
@@ -151,19 +152,19 @@ export default async function PaymentsPage() {
                   <div>
                     <p className="text-zinc-400">Total</p>
                     <p className="font-bold text-green-400 text-xs">
-                      Rp {invoice.grandTotal.toLocaleString("id-ID")}
+                      {formatCurrency(invoice.grandTotal)}
                     </p>
                   </div>
                   <div>
                     <p className="text-zinc-400">Paid</p>
                     <p className="font-semibold text-xs">
-                      Rp {invoice.paidAmount.toLocaleString("id-ID")}
+                      {formatCurrency(invoice.paidAmount)}
                     </p>
                   </div>
                   <div>
                     <p className="text-zinc-400">Remaining</p>
                     <p className="font-bold text-red-400 text-xs">
-                      Rp {remaining.toLocaleString("id-ID")}
+                      {formatCurrency(remaining)}
                     </p>
                   </div>
                 </div>
