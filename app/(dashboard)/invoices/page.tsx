@@ -2,7 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Eye, Plus } from "lucide-react";
 import { formatCurrency, formatDate } from "@/lib/utils";
-
+export const dynamic = 'force-dynamic';
 export default async function InvoicesPage() {
   const invoices = await prisma.invoice.findMany({
     include: {

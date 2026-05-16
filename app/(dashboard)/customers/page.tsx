@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { prisma } from "@/lib/prisma";
 import { Eye, Plus } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
